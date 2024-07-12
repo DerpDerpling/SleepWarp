@@ -82,17 +82,17 @@ public class WarpEngine {
         }
         
         // Collect valid chunks to tick.
-        var chunkStorage = world.getChunkManager().threadedAnvilChunkStorage;
+        var chunkStorage = world.getChunkManager().chunkLoadingManager;
         var chunks = new ArrayList<WorldChunk>();
-        
+
         for (ChunkHolder chunkHolder : chunkStorage.entryIterator()) {
             WorldChunk chunk = chunkHolder.getWorldChunk();
-            
+
             if (chunk != null && world.shouldTick(chunk.getPos()) && chunkStorage.shouldTick(chunk.getPos())) {
                 chunks.add(chunk);
             }
         }
-        
+
         // Accelerate time and tick world.
         var doDaylightCycle = world.worldProperties.getGameRules().getBoolean(GameRules.DO_DAYLIGHT_CYCLE);
         
